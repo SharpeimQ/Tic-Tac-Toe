@@ -1,23 +1,16 @@
-# Game loop to constantly refresh the board until win condition is met
-# Create a class for the squares that will be used
-
-# puts [7, 7, 7].inspect
-# puts [7, 7, 7].inspect
-# puts [7, 7, 7].inspect
-
-# Encase the board inside another array (gameboard)
-# Target each square through accessing index in the arrays
-# Win-condition will be determined via comparison of index ==
-
-# Methods for the Board class
+# Methods for the board class
 module Game
   def check_input(chomped)
     valid_inputs = [1, 2, 3]
     until valid_inputs.include?(chomped)
-      puts 'Enter 1, 2, 3'
+      puts 'Invalid! Enter 1, 2, 3'
       chomped = gets.chomp.to_i
     end
     chomped
+  end
+
+  def choice(turn)
+    turn.even? ? 'X' : 'O'
   end
 end
 
@@ -26,11 +19,12 @@ class Board
   include Game
   attr_accessor :row_one, :row_two, :row_three, :board
 
-  def initialize(row_one, row_two, row_three)
+  def initialize(row_one, row_two, row_three, turn)
     @row_one = row_one
     @row_two = row_two
     @row_three = row_three
     @board = [row_one] + [row_two] + [row_three]
+    @turn = turn
   end
 
   def display_board
@@ -48,11 +42,14 @@ class Board
     col_index = gets.chomp.to_i
     col_index = check_input(col_index)
 
-    @board[row_index - 1][col_index - 1] = 'X'
+    @board[row_index - 1][col_index - 1] = choice(@turn)
   end
 end
 
-board = Board.new(['7', '7', '7'], ['7', '7', '7'], ['7', '7', '7'])
-
-puts board.move
-puts board.display_board
+def game_start
+  board = Board.new(['7', '7', '7'], ['7', '7', '7'], ['7', '7', '7'], 1)
+  puts board.display_board
+  board.move
+  puts board.display_board
+end
+game_start
