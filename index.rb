@@ -11,12 +11,20 @@
 
 # Class to create rows for board
 class Board
+  attr_accessor :row_one, :row_two, :row_three
+
   def initialize(row_one, row_two, row_three)
-    puts row_one.inspect
-    puts row_two.inspect
-    puts row_three.inspect
+    @row_one = row_one
+    @row_two = row_two
+    @row_three = row_three
+  end
+
+  def display_board
+    puts @row_one.inspect
+    puts @row_two.inspect
+    puts @row_three.inspect
   end
 end
 
 board = Board.new([7, 7, 7], [7, 7, 7], [7, 7, 7])
-puts board.inspect
+board.display_board
