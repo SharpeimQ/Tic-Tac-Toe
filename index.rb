@@ -57,32 +57,30 @@ class Board
   def win_condition
     if @row_one.all?('X') || @row_two.all?('X') || @row_three.all?('X')
       puts 'X is the winner!'
-      125
+      'X'
     elsif @row_one.all?('O') || @row_two.all?('O') || @row_three.all?('O')
       puts 'O is the winner!'
-      125
-    end
-
-    if @row_one[0] == 'X' && @row_two[0] == 'X' && @row_three[0] == 'X' &&
-       @row_one[1] == 'X' && @row_two[1] == 'X' && @row_three[1] == 'X' &&
-       @row_one[2] == 'X' && @row_two[2] == 'X' && @row_three[2] == 'X'
+      'O'
+    elsif @row_one[0] == 'X' && @row_two[0] == 'X' && @row_three[0] == 'X' &&
+          @row_one[1] == 'X' && @row_two[1] == 'X' && @row_three[1] == 'X' &&
+          @row_one[2] == 'X' && @row_two[2] == 'X' && @row_three[2] == 'X'
       puts 'X is the winner!'
-      125
+      'X'
     elsif @row_one[0] == 'O' && @row_two[0] == 'O' && @row_three[0] == 'O' &&
           @row_one[1] == 'O' && @row_two[1] == 'O' && @row_three[1] == 'O' &&
           @row_one[2] == 'O' && @row_two[2] == 'O' && @row_three[2] == 'O'
       puts 'O is the winner!'
-      125
-    end
-
-    if (@row_one[0] == 'X' && @row_two[1] == 'X' && @row_three[2] == 'X') ||
-       (@row_one[2] == 'X' && @row_two[1] == 'X' && @row_three[0] == 'X')
+      'O'
+    elsif (@row_one[0] == 'X' && @row_two[1] == 'X' && @row_three[2] == 'X') ||
+          (@row_one[2] == 'X' && @row_two[1] == 'X' && @row_three[0] == 'X')
       puts 'X is the winner!'
-      125
+      'X'
     elsif (@row_one[0] == 'O' && @row_two[1] == 'O' && @row_three[2] == 'O') ||
           (@row_one[2] == 'O' && @row_two[1] == 'O' && @row_three[0] == 'O')
       puts 'O is the winner!'
-      125
+      'O'
+    else
+      'nil'
     end
   end
 end
@@ -90,11 +88,12 @@ end
 def game_start
   board = Board.new(['#', '#', '#'], ['#', '#', '#'], ['#', '#', '#'], 0)
   puts board.display_board
-  4.times do
+  valid_win = ['X', 'O']
+  until valid_win.include?(board.win_condition)
     board.move
     board.turns
-    board.win_condition
     puts board.display_board
   end
 end
+
 game_start
